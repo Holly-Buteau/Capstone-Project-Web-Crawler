@@ -10,6 +10,7 @@
 
 <!-- Optional theme -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="script.js"></script>
 </head>
 
 
@@ -55,17 +56,20 @@
 	or select 'Help' for more information.
 	</p>
 	
-	<span style="margin-left: 400px"><small>Select Your Crawl Type</small></span>
-	<span style="float:right; margin-right: 400px"><small>Type Your Keyword</small></span>
 	
+	<span style="float:right; margin-right: 400px"><small>Type Your Keyword</small></span>
+          <p class="formtext">Starting URL:</p>
+          <input type="text" name="startingURL" id="startingURL"><br><br>
+          <input type="radio" name="searchType" value="dfs" id="dfs">
+          <label for="dfs" class="inputtext">Depth First</label><br>
+          <input type="radio" name="searchType" value="bfs" id="bfs">
+          <label for="bfs" class="inputtext">Breadth First</label><br>
+           <button type="button" class="submitButton" id="submitButton">Submit</button>
 	<div class="wrapper">
-		<button class="button" style="color:blue;style=float:left;margin-left: 400px">Depth-First Crawl  </button>
+		
 		<input style="float:right;margin-right: 375px"type="text" name="search" placeholder="Search..">
 	</div>
-	<div class="wrapper">
-		<button class="button" style="color:red;style=float:left;margin-left: 400px">Breadth-First Crawl</button>
-	</div>
-	
+
 
 	
 	
