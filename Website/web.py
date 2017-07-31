@@ -38,12 +38,11 @@ class HTMLPage(object):
         # fetch the actual webpage
         response = requests.get(link.url)
         self.status_code = response.status_code
-        self.html_content = response.text
+        self.html_content = response.text.encode('utf8')
         self.text_content = HTMLUtils.html_to_text(self.html_content)
         self.encoding = response.encoding
 
         # fetch all child links
-        self.child_links = []
         self.child_links = self._get_all_links()
 
     def get_links(self, allowed_domains=[]):
@@ -131,6 +130,14 @@ class Link(object):
         self.is_valid = URLUtils.is_valid(self.url)
         self.id = URLUtils.hash(self.url)
         self.level = 0 if parent is None else parent.level+1
+
+    def __eq__(self, link):
+        if isinstance(link, Link):
+            return link.url == self.url
+        return False
+
+    def __hash__(self):
+        return hash(self.id)
 
     def __str__(self):
         return '[LINK] URL:%s ; DOMAIN:%s ; IS_VALID:%s ; ID:%s ; LEVEL:%s' \

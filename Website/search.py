@@ -17,13 +17,15 @@ class WebCrawler(object):
         """
         self.user_id = user_id
 
-    def bfs(self, start_url, max_level, stop_words=[],
-    allowed_domains=[], persist=True):
-        """Starts from the given URL and performs a Breadth First Search until
+    def search(self, search_type, start_url, max_level,
+    stop_words=[], allowed_domains=[], persist=True):
+        """Starts from the given URL, performs a Breadth First Search (BFS)
+        or a Depth First Search (DFS) and continues indefinitely until
         a maximum level is reached or until one of the given stop words are
         encountered
 
         Args:
+            search_type (str): Allowed values are "BFS" or "DFS"
             start_url (str): Search starting point
             max_level (int): The maximum level until which the search should
                 be performed
@@ -42,9 +44,17 @@ class WebCrawler(object):
             ArgumentError: If arguments are faulty
         """
         # validate args
+        if not isinstance(search_type, str) or \
+        search_type.upper() not in ['BFS', 'DFS']:
+            raise ArgumentError('Param "search_type" must be either of ' \
+                '"bfs" or "dfs". Got: %s' %search_type)
+        if not isinstance(start_url, str):
+            raise ArgumentError('Param "start_url" must be a string. ' \
+                'Got: %s' %start_link.url)
         start_link = Link(start_url)
         if not start_link.is_valid:
-            raise ArgumentError('Invalid Start URL: %s' %start_link.url)
+            raise ArgumentError('Param "start_url" must be a valid URL. ' \
+                'Got: %s' %start_link.url)
         if not isinstance(max_level, int):
             raise ArgumentError('Param "max_level" must be an integer. ' \
                 'Got: %s' %max_level)
@@ -53,22 +63,25 @@ class WebCrawler(object):
         if not start_link.domain in allowed_domains:
             allowed_domains.append(start_link.domain)
 
-        # initiate the BFS data structures
+        # initiate the data structures
         visited = set()
         queue = [ start_link ]
         stop_word_hit = False
 
-        # BFS
+        # perform search
         while queue and not stop_word_hit:
-            link = queue.pop(0)
+            # depending on whether the search type is BFS/DFS
+            # retrieve from top or bottom of the queue
+            link = queue.pop(0) if search_type == 'BFS' else queue.pop()
+
             if link not in visited:
                 # visit the current link
-                visited.add(link.id)
+                visited.add(link)
 
                 # parse current page and get all child links
                 page = HTMLPage(link)
                 if page.status_code == 200 and link.level < max_level:
-                    queue += page.get_links(allowed_domains)
+                    queue.extend(page.get_links(allowed_domains))
                 print page
 
                 # check if the current page has one of the given stop words
@@ -80,26 +93,3 @@ class WebCrawler(object):
             pass
 
         return visited
-
-    def dfs(self, start_url, max_level, stop_words=[],
-    allowed_domains=[], persist=True):
-        """Starts from the given URL and performs a Depth First Search until
-        a maximum level is reached or until one of the given stop words are
-        encountered
-
-        Args:
-            start_url (str): Search starting point
-            max_level (int): The maximum level until which the search should
-                be performed
-            stop_words (list(str), optional): The list of words which is to be
-                checked for to halt the current search
-            allowed_domains (list(str), optional): The list of domains to
-                restrict the URLs to, while performing the search
-            persist (bool, optional): If True, the search results will be
-                persisted in the database
-
-        Returns:
-            set(str): A list of unique Link objects encountered while performing
-                the depth first search
-        """
-        pass

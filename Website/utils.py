@@ -109,6 +109,6 @@ class URLUtils(object):
         """
         try:
             result = urlparse.urlparse(url)
-            return all([result.scheme, result.netloc, result.path])
+            return all([result.scheme, result.netloc])
         except:
             return False
