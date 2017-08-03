@@ -22,11 +22,9 @@ os: linux
 # If you are not copying any files to the Amazon EC2 instance, then remove the
 #   "files" section altogether. A blank or incomplete "files" section
 #   may cause associated deployments to fail.
-#	files:
-# 	- source: 
-#	destination:
-#	- source:
-#  	destination:
+files:
+  - source: /index.html
+    destination: /var/www/html/
 # For deployments to Amazon Linux, Ubuntu Server, or RHEL instances,
 #   you can specify a "permissions" 
 #   section here that describes special permissions to apply to the files 
@@ -60,8 +58,10 @@ hooks:
     - location: scripts/install_dependencies
       timeout: 300
       runas: root
-   BeforeInstall:
     - location: scripts/external_dependencies
+      timeout: 300
+      runas: root
+    - location: scripts/start_server
       timeout: 300
       runas: root
 # For each deployment lifecycle event, specify multiple "location" entries 
