@@ -30,7 +30,7 @@ files:
   - source: /help.html
     destination: /var/www/html/
   - source: /profile.html
-    desination: /var/ww/html/
+    desination: /var/www/html/
 
 # For deployments to Amazon Linux, Ubuntu Server, or RHEL instances,
 #   you can specify a "permissions" 
