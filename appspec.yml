@@ -27,6 +27,11 @@ files:
     destination: /var/www/html/
   - source: /cookies.html
     destination: /var/www/html/
+  - source: /help.html
+    destination: /var/www/html/
+  - source: /profile.html
+    desination: /var/ww/html/
+
 # For deployments to Amazon Linux, Ubuntu Server, or RHEL instances,
 #   you can specify a "permissions" 
 #   section here that describes special permissions to apply to the files 
