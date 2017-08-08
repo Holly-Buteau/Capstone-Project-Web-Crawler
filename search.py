@@ -1,5 +1,10 @@
+from datetime import datetime
+
 from web import HTMLPage, Link
+from persist import Postgres
+
 from errors import ArgumentError
+from errors import PersistenceExecuteError
 
 
 class WebCrawler(object):
@@ -9,15 +14,19 @@ class WebCrawler(object):
     results can be retrieved or optionally persisted on a database (with
     the UserID being a part of the primary key of most tables)
     """
-    def __init__(self, user_id):
+    def __init__(self, db_config, user_id):
         """Associates the WebCrawler instance to a User
 
         Args:
             user_id (str): A string that represents a UserID
+
+        Raises:
+            PersistenceConnectionError: For DB Connection issues
         """
+        self.db = Postgres(**db_config)
         self.user_id = user_id
 
-    def search(self, search_type, start_url, max_level,
+    def search(self, search_code, search_type, start_url, max_level,
     stop_words=[], allowed_domains=[], persist=True):
         """Starts from the given URL, performs a Breadth First Search (BFS)
         or a Depth First Search (DFS) and continues indefinitely until
@@ -25,6 +34,8 @@ class WebCrawler(object):
         encountered
 
         Args:
+            search_code (str): A unique sting identifying the
+                current search request
             search_type (str): Allowed values are "BFS" or "DFS"
             start_url (str): Search starting point
             max_level (int): The maximum level until which the search should
@@ -42,6 +53,8 @@ class WebCrawler(object):
 
         Raises:
             ArgumentError: If arguments are faulty
+            PersistenceExecuteError: For DB Query Execution issues
+            PersistenceError: For any other DB related issue
         """
         # validate args
         if not isinstance(search_type, str) or \
@@ -63,6 +76,25 @@ class WebCrawler(object):
         if not start_link.domain in allowed_domains:
             allowed_domains.append(start_link.domain)
 
+        if persist:
+            search_info = {
+                'search_code': search_code,
+                'search_type': search_type,
+                'start_url': start_url,
+                'max_level': max_level,
+                'crawled_date_time': datetime.today()
+            }
+
+            # save job details to DB
+            try:
+                self.db.insert('CRAWL.INFO', search_info)
+                self.db.commit()
+            except PersistenceExecuteError as err:
+                self.db.rollback()
+                print 'Insertion to CRAWL.INFO table failed for user: %s' \
+                    %self.user_id
+                raise err
+
         # initiate the data structures
         visited = set()
         queue = [ start_link ]
@@ -74,9 +106,25 @@ class WebCrawler(object):
             # retrieve from top or bottom of the queue
             link = queue.pop(0) if search_type == 'BFS' else queue.pop()
 
-            if link not in visited:
+            if link.is_valid and link not in visited:
                 # visit the current link
                 visited.add(link)
+
+                if persist:
+                    # save the link to DB
+                    try:
+                        link_data = {
+                            'search_code': search_code,
+                            'id': link.id,
+                            'url': link.url,
+                            'level': link.level,
+                            'parent_id': link.parent and link.parent.id
+                        }
+                        self.db.insert('CRAWL.DATA', link_data)
+                    except PersistenceExecuteError as err:
+                        print 'Insertion to CRAWL.DATA table failed for user: %s' \
+                            %self.user_id
+                        raise err
 
                 # parse current page and get all child links
                 page = HTMLPage(link)
@@ -88,8 +136,5 @@ class WebCrawler(object):
                 for word in stop_words:
                     stop_word_hit = stop_word_hit or page.has_word(word)
 
-        if persist:
-            # save to DB
-            pass
-
+        self.db.commit()
         return visited

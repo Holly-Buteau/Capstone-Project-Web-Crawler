@@ -1,14 +1,23 @@
 from search import WebCrawler
 
 
+db_config = {
+    'database': 'postgres',
+    'user': 'postgres',
+    'password': 'postgres',
+    'host': '127.0.0.1',
+    'port': '5432'
+}
+
 user_id = '123456'
-crawler = WebCrawler(user_id)
+crawler = WebCrawler(db_config, user_id)
 
 search_options = {
+    'search_code': '098765',
     'search_type': 'DFS', # or 'BFS'
     'start_url': 'http://docs.peewee-orm.com/en/latest/peewee/querying.html',
     'max_level': 2,
-    'persist': False
+    'persist': True
 }
 search_result = crawler.search(**search_options)
 
