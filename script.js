@@ -1,4 +1,4 @@
- $(document).ready(function(){
+$(document).ready(function(){
   $("#submitButton").click(function(e){
       e.preventDefault();
         $.ajax({type: "POST",
@@ -12,4 +12,5 @@
             alert('error');
            }
        });
-  });
+    });
+});
