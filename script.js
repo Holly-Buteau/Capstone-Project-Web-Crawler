@@ -6,4 +6,4 @@ $(document).ready(function(){
         }).done(function(e) {
             alert("Post to example.py successful");
         });
-}});
+}}));
