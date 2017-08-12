@@ -8,6 +8,7 @@
         <?php
 
         $search_type = $_POST['search_type'];   
+        echo $search_type;
         
         ?>
     </body>
