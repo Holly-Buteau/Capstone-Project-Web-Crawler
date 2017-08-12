@@ -3,7 +3,7 @@ $(document).ready(function(){
       e.preventDefault();
         $.ajax({type: "POST",
             url: "/example.py",
-            data: { id: $("#button_1").val() },
+            //data: { id: $("#button_1").val() },
             success:function(result){
               alert('ok');
             },
