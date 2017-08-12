@@ -1,4 +1,9 @@
 $(document).ready(function(){
     $("#submitButton").click(function() {
-        alert("ok");
+        $.ajax({
+        type: "POST",
+        url: "~/example.py"        
+        }).done(function(e) {
+            alert("Post to example.py successful");
+        });
     });
