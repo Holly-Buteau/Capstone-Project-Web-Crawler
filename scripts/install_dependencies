@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo yum install python-devel libxml2-dev libxslt1-dev
+sudo yum install python-devel libxml2-devel libxslt1-devel
