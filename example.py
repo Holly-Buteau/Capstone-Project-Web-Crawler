@@ -17,6 +17,7 @@ search_options = {
     'search_type': 'DFS', # or 'BFS'
     'start_url': 'http://docs.peewee-orm.com/en/latest/peewee/querying.html',
     'max_level': 2,
+    'stop_words': 'stop',
     'persist': True
 }
 search_result = crawler.search(**search_options)
