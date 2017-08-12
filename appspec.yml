@@ -35,6 +35,8 @@ files:
     destination: /var/www/html/
   - source: /Website/web-crawler-300x255.gif
     destination: /var/www/html/
+  - source: /script.js
+    destination: /var/www/html
 
 # For deployments to Amazon Linux, Ubuntu Server, or RHEL instances,
 #   you can specify a "permissions" 
