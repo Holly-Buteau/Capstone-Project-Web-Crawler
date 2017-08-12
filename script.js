@@ -3,7 +3,7 @@ $(document).ready(function(){
       e.preventDefault();
         $.ajax({type: "POST",
             url: "/formtest.php",
-            data: { search_type: "testValue" },
+            data: { search_type: "testValue" }
             success:function(result){
               alert('ok');
             },
