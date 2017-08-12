@@ -1,3 +1,7 @@
-$( "#submitButton" ).bind( "click", function() {
-  alert( "User clicked on 'foo.'" );
+$(document).ready(function(){
+    $("#submitButton").click(function() {
+        alert("ok");
+    });
+    alert("Document loaded");
 });
+alert("Script loaded");
