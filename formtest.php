@@ -9,7 +9,5 @@
 
         $search_type = $_POST['search_type'];        
         
-
-        </div>
     </body>
 </html>
