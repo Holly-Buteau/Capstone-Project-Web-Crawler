@@ -37,6 +37,8 @@ files:
     destination: /var/www/html/
   - source: /script.js
     destination: /var/www/html
+  - source: /example.py
+    destination: /var/www/html
 
 # For deployments to Amazon Linux, Ubuntu Server, or RHEL instances,
 #   you can specify a "permissions" 
