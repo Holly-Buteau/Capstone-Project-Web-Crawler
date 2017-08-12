@@ -66,14 +66,13 @@ files:
 #   may cause associated deployments to fail.
 hooks:
   BeforeInstall:
-
     #- location: scripts/external_dependencies
      # timeout: 300
       #runas: root
     - location: scripts/start_server
       timeout: 300
       runas: root
-  Install:
+  AfterInstall:
       - location: scripts/install_dependencies
       timeout: 300
       runas: root
