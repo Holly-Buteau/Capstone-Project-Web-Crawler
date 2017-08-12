@@ -2,7 +2,7 @@ $(document).ready(function(){
   $("#submitButton").click(function(e){
       e.preventDefault();
         $.ajax({type: "POST",
-            url: "/formtest.php",
+            url: "/example.py",
             data: { search_type: $("#searchValue").val() },
             success:function(result){
               alert('ok');
