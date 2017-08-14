@@ -5,6 +5,9 @@ from persist import Postgres
 
 from errors import ArgumentError
 from errors import PersistenceExecuteError
+import cgi, cgitb
+
+data = cgi.FieldStorage()
 
 starting_url = data["starting_url"].value
 print starting_url
