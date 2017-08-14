@@ -1,4 +1,5 @@
 from search import WebCrawler
+import cgi, cgitb 
 
 
 db_config = {
@@ -12,12 +13,13 @@ db_config = {
 user_id = '123456'
 crawler = WebCrawler(db_config, user_id)
 
+data = cgi.FieldStorage()
 search_options = {
     'search_code': '098765',
-    'search_type': 'DFS', # or 'BFS'
-    'start_url': 'http://docs.peewee-orm.com/en/latest/peewee/querying.html',
+    'search_type': data["search_type"].value,
+    'start_url': data["starting_url"].value,
     'max_level': 2,
-    'stop_words': 'stop',
+    'stop_words': data["stop_words"].value,
     'persist': True
 }
 search_result = crawler.search(**search_options)
