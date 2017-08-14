@@ -1,6 +1,5 @@
 $(document).ready(function(){
-  $("#submitButton").click(function(e){
-      e.preventDefault();
+  function runPyScript(input){
       var searchString = "";
       var selected = $("input[type='radio'][name='searchType']:checked");
       var starting = "";
@@ -10,17 +9,18 @@ $(document).ready(function(){
       starting = startingValue.val();
       searchString = selected.val();
       stopWords = stopValue.val();
-        $.ajax({type: "POST",
+        var jqXHR = $.ajax({        
+            type: "POST",
             url: "/search.py",
-            data: { search_type: searchString, start_url: starting, stop_words: stopWords },
-            dataType:"text",
-            success:function(result){
-              alert('ok');
-            },
-           error:function(result)
-            {
-            alert('error');
-           }
-       });
+            async: false,
+            data: { search_type: searchString, start_url: starting, stop_words: stopWords }
+        });
+               return jqXHR.responseText;
+    }
+        
+ $('#submitButton').click(function(){
+        datatosend = 'this is my matrix';
+        result = runPyScript(datatosend);
+        console.log('Got back ' + result);
     });
 });
