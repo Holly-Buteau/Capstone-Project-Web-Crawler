@@ -7,8 +7,10 @@
     <body>
         <?php
 
-        $search_type = $_POST['search_type'];   
+        $search_type = $_POST['search_type'];
+        $start_url = $_POST['start_url'];
         echo $search_type;
+        echo $start_url;
         
         ?>
     </body>
