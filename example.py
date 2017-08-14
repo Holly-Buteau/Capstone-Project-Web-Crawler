@@ -1,3 +1,4 @@
+import XMLParser
 from search import WebCrawler
 import cgi, cgitb 
 
