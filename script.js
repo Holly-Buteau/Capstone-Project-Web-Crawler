@@ -10,7 +10,7 @@ $(document).ready(function(){
       starting = startingValue.val();
       searchString = selected.val();
       stopWords = stopValue.val();
-        $.ajax({type: "GET",
+        $.ajax({type: "POST",
             url: "/search.py",
             data: { search_type: searchString, start_url: starting, stop_words: stopWords },
             dataType:"text",
