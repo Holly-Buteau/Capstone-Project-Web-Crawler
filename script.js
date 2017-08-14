@@ -13,7 +13,7 @@ $(document).ready(function(){
         $.ajax({type: "POST",
             url: "/search.py",
             data: { search_type: searchString, start_url: starting, stop_words: stopWords },
-            datatype:"script",
+            dataType:"text",
             success:function(result){
               alert('ok');
             },
