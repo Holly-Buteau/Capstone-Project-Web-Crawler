@@ -14,7 +14,7 @@ $(document).ready(function(){
             url: "/search.py",
             data: { search_type: searchString, start_url: starting, stop_words: stopWords },
             dataType:"text",
-            success:function(result){
+            success:function(foo){
               alert('ok');
             },
            error:function(result)
