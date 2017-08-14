@@ -11,8 +11,7 @@ $(document).ready(function(){
       stopWords = stopValue.val();
         var jqXHR = $.ajax({        
             type: "POST",
-            url: "/search.py",
-            async: false,
+            url: "/search.py",      
             data: { search_type: searchString, start_url: starting, stop_words: stopWords }
         });
                return jqXHR.responseText;
