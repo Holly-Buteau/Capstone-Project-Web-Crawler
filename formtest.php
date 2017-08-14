@@ -9,8 +9,10 @@
 
         $search_type = $_POST['search_type'];
         $start_url = $_POST['start_url'];
+        $stop_words = $_POST['stop_words'];
         echo $search_type;
         echo $start_url;
+        echo $stop_words;
         
         ?>
     </body>
