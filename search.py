@@ -6,6 +6,8 @@ from persist import Postgres
 from errors import ArgumentError
 from errors import PersistenceExecuteError
 
+starting_url = data["starting_url"].value
+print starting_url
 
 class WebCrawler(object):
     """A Crawler instance that is attached to a User (by his/her UserID)
