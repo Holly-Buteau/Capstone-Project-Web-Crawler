@@ -7,7 +7,8 @@
     <body>
         <?php
          header('Content-type: application/json; charset=utf-8');
-       $db_connection = pg_connect("host=firstdbinstance.cxvcjdies8vv.us-east-2.rds.amazonaws.com dbname=beginning_database user=copety  password=eridanus");
+       $db_connection = pg_connect("host = firstdbinstance.cxvcjdies8vv.us-east-2.rds.amazonaws.com dbname = beginning_database user = copety  password = eridanus port = 5432");
+       echo "Database opened."
        $result = pg_query($db_connection, "SELECT * FROM webholder");
        $data = array();
     while ($row = pg_fetch_array($result))
