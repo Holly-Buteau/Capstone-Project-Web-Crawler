@@ -12,7 +12,7 @@ $(document).ready(function(){
       stopWords = stopValue.val();
         $.ajax({type: "POST",
             url: "/formtest.php",
-            data: { search_type: searchString, start_url: starting, stop_words = stopWords },
+            data: { search_type: searchString, start_url: starting, stop_words: stopWords },
             success:function(result){
               alert('ok');
             },
