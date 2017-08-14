@@ -1,4 +1,4 @@
-import XMLParser
+from xml.etree.ElementTree import iterparse, XMLParser
 from search import WebCrawler
 import cgi, cgitb 
 
