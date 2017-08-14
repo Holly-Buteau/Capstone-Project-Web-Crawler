@@ -11,7 +11,7 @@ $(document).ready(function(){
       searchString = selected.val();
       stopWords = stopValue.val();
         $.ajax({type: "POST",
-            url: "/search.py",
+            url: "/example.py",
             data: { search_type: searchString, start_url: starting, stop_words: stopWords },
             success:function(result){
               alert('ok');
