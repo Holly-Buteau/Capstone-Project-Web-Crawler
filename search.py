@@ -78,10 +78,12 @@ class WebCrawler(object):
 
         if persist:
             search_info = {
-                'search_code': search_code,
-                'search_type': search_type,
-                'start_url': start_url,
-                'max_level': max_level,
+                'search_code': '098765',
+                'search_type': data["search_type"].value,
+                'start_url': data["starting_url"].value,
+                'max_level': 2,
+                'stop_words': data["stop_words"].value,
+                'persist': True 
                 'crawled_date_time': datetime.today()
             }
 
