@@ -10,7 +10,7 @@ import cgi, cgitb
 data = cgi.FieldStorage()
 
 starting_url = data["starting_url"].value
-print starting_url
+return starting_url
 
 class WebCrawler(object):
     """A Crawler instance that is attached to a User (by his/her UserID)
