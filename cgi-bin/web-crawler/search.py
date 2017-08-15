@@ -5,7 +5,7 @@ from persist import Postgres
 
 from errors import ArgumentError
 from errors import PersistenceExecuteError
-
+import logging
 
 class WebCrawler(object):
     """A Crawler instance that is attached to a User (by his/her UserID)
@@ -91,8 +91,8 @@ class WebCrawler(object):
                 self.db.commit()
             except PersistenceExecuteError as err:
                 self.db.rollback()
-                print 'Insertion to CRAWL.INFO table failed for user: %s' \
-                    %self.user_id
+                logging.error('Insertion to CRAWL.INFO table failed for user: %s' \
+                    %self.user_id)
                 raise err
 
         # initiate the data structures
@@ -122,15 +122,15 @@ class WebCrawler(object):
                         }
                         self.db.insert('CRAWL.DATA', link_data)
                     except PersistenceExecuteError as err:
-                        print 'Insertion to CRAWL.DATA table failed for user: %s' \
-                            %self.user_id
+                        logging.error('Insertion to CRAWL.DATA table failed for user: %s' \
+                            %self.user_id)
                         raise err
 
                 # parse current page and get all child links
                 page = HTMLPage(link)
                 if page.status_code == 200 and link.level < max_level:
                     queue.extend(page.get_links(allowed_domains))
-                print page
+                logging.info(page)
 
                 # check if the current page has one of the given stop words
                 for word in stop_words:

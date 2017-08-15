@@ -7,10 +7,7 @@ from lxml.html.clean import Cleaner
 
 
 class HTMLUtils(object):
-    """Utility class for HTML manipulations
-
-    All methods in this class are static methods. No need to instantiate.
-    """
+    #Utility class for HTML manipulations. All methods in this class are static methods. No need to instantiate.
     HTML_CLEANER = Cleaner(**{
         'scripts': True,
         'javascript': True,
@@ -43,10 +40,8 @@ class HTMLUtils(object):
 
 
 class URLUtils(object):
-    """Utility class for URL manipulations
+    #Utility class for HTML manipulations. All methods in this class are static methods. No need to instantiate.
 
-    All methods in this class are static methods. No need to instantiate.
-    """
     @staticmethod
     def absolute(base_url, url):
         """Makes a relative URL into an absolute URL
