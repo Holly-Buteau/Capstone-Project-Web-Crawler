@@ -35,7 +35,7 @@ search_options = {
     #or 'BFS'
     'start_url': startingUrl,
     #'http://docs.peewee-orm.com/en/latest/peewee/querying.html', - This is parameterizing the URL instead of harcoding it so it can be passed from the main screen
-    'max_level': 2,
+    'max_level': 10,
     'persist': True
 }#Set response to JSON
 print("Content-Type: text/html\n")
